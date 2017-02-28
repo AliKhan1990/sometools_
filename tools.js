@@ -20,7 +20,7 @@ function placeholder(ele,text){//设定函数ele变量名，text字符串内容
 //----------------------------拖拽函数（封装完毕）--------------------------------------------
 function drag(box,title){
 				var handle;
-				title ? handle=title:handle=box ;
+				title?handle=title:handle=box;
 				handle.onmousedown=function(ev){//鼠标按下效果
 					var oEv=ev || window.event;
 					var disX=oEv.clientX-box.offsetLeft;//鼠标在Div内的X值
@@ -46,15 +46,79 @@ function drag(box,title){
 						box.style.left=L+'px';
 						box.style.top=H+'px';
 					};
+					document.onmouseup=function(){//鼠标抬起效果
+							document.onmousemove=null;
+						}
 					return false;
 					
 				}
-				document.onmouseup=function(){//鼠标抬起效果
-					document.onmousemove=null;
-				}
 			
 			}
+//---------------------------边框拖拽函数----------------------------------------
 
+
+//-------------------盒子变形------------------------------------
+	function zFn(oBox,obj){
+		obj.onmousedown=function(ev) {
+			var oEv = ev || event;
+			oEv.cancleBubble = true;
+//---------------------声明原相关参数------------------------------
+			var oriWidth = oBox.offsetWidth;//原大盒子宽
+			var oriHeight = oBox.offsetHeight;//原大盒子高
+			var oriX = oBox.clientX;//原光标坐标Y轴
+			var oriY = oBox.clientY;//原光标坐标X轴
+			var oriLeft = oBox.offsetLeft;//原左距离
+			var oriTop = oBox.offsetTop;//原上距离
+//--------------------光标移动效果---------------------------------
+		document.onmousemove=function(ev){
+			var oEv = ev || event;
+			oEv.cancleBubble = true;
+			var cusorX = oEv.clientX - oriX;
+			var cusorY = oEv.clientY - oriY;
+			console.log(cusorX,cusorY);
+//--------------------右边框拉伸效果-------------------------------
+			if(obj.className == "l"){
+				oBox.style.width = oriWidth - cusorX + "px";
+				oBox.style.left = oriLeft + cusorX + "px";
+			}
+//-------------------左边框拉伸效果--------------------------------
+			if(obj.className == "r"){
+				oBox.style.width = oriWidth + cusorX + "px";
+			}
+//------------------上边框拉伸效果---------------------------------
+			if(obj.className == "t"){
+				oBox.style.height = oriHeight - cusorY + "px";
+				oBox.style.top = oriTop + cousorY + "px";
+			}
+//-----------------左上拉伸效果------------------------------------
+			if(obj.className == "tl"){
+				oBox.style.width = oriWidth - cusorX + "px";
+				oBox.style.height = oriHeight - cusorY + "px";
+				oBox.style.top = oEv.clientY;
+				oBox.style.left = oEv.clientX;
+			}
+			if(obj.className == "tr"){
+				oBox.style.width = oriWidth - cusorX + "px";
+				oBox.style.height = oriHeight - cusorY + "px";
+				oBox.style.top = oEv.clientY;
+			}
+			if(obj.className == "bl"){
+				oBox.style.width = oriWidth - cusorX + "px";
+				oBox.style.height = oriHeight + cusorY + "px";
+				oBox.style.left = oEv.clientX;
+			}
+			if(obj.className == "br"){
+				oBox.style.width = oriWidth + cusorX + "px";
+				oBox.style.height = oriHeight + cusorY + "px";
+			}
+		}	
+		document.onmouseup = function(){
+			document.onmousemove=document.onmouseup=null;
+		}
+		return false;
+			
+		}
+	}
 
 //----------------------------绝对居中函数（封装完毕）--------------------------
 function B_mid(ele){
