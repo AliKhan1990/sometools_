@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>拖拽登陆框</title>
+        <link href="widget.css" rel="stylesheet" type="text/css">
+		<link href="index.css" rel="stylesheet" type="text/css">
+		<script src="tools.js" type="text/javascript"></script>
+        <script src="widget.js" type="text/javascript"></script>
+		<script>
+		</script>
+	</head>
+    <script>
+        window.onload = function() {
+			var oPen=document.getElementById('open_popBox');//"打开登陆窗口"组件
+			B_mid(oPen);
+			document.getElementById('open_popBox').onclick = function () {
+				login();
+			}
+		}
+    </script>
+	<body>
+		<button id="open_popBox" class='OpenBtn' type="button">登陆窗口</button>
+	</body>
+</html>

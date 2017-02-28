@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>拖拽登陆框</title>
+		<style>
+		*{text-decoration:none;list-style:none;padding:0;margin:0;}
+		.OpenBtn{
+			background:rgba(100,200,100,.7);
+			border-radius:5px;
+			color:#fff;
+			margin:0 auto;
+			border:1px #008000 solid;
+			cursor:pointer;
+			font-size:35px;
+			}
+		.modal{
+			width:100%;
+			height:100%;
+			background:#D0E9C6;
+			opacity:.3;
+			position:fixed;
+			top:0;left:0;
+			z-index:-1;display:none;
+		}
+		.nomod{
+			width:280px;
+			height:150px;
+			margin: auto;
+			border:1px solid #eee;
+			display:none;
+			z-index:1;
+			background: #fff;
+		}
+		.nomod p{
+			padding-left:30px;
+			padding-top:10px;
+		}
+		.nomod h4{
+			line-height:28px;
+			color:#F7F7F7;
+			background:#ADADAD;
+			padding-left:10px;
+		}
+		.nomod h4 a{
+			color:#f7f7f7;
+			float:right;
+			padding-right:10px;
+		}
+		.nomod h4 a:hover{
+			color:#777777;
+			transition:all 1s;
+		}
+		.nomod button{
+			
+		}
+		.loginbox{
+			margin-left:50%;
+			transform:translateX(-50%);
+		}
+		.loginbox button{
+			border:1px solid #878585;
+			border-radius:5px;
+			cursor: pointer;
+		}
+		</style>
+		<script>
+			window.onload=function(){
+//-------------------------声明部分---------------------------------------------------
+				var oPen=document.getElementById('open_popBox');//"打开登陆窗口"组件
+				var oBMo=document.getElementById('black_modal');//黑色帷幕
+				var oBox=document.getElementById('box');//登陆大盒子
+				var oCloseBtn=document.getElementById('closeBtn');//X框
+				var title=oBox.getElementsByTagName('h4');
+				//console.log(title);
+				var oInp=document.getElementsByTagName('input');//输入框
+//---------------------------输入框效果------------------------------------------------
+				function placeholder(ele,text){//设定函数ele变量名，text字符串内容
+					ele.value=text;
+					ele.style.color='#ccc';
+					ele.onfocus=function(){
+						if(this.value==text){//判断为默认值清空
+							this.value='';
+							ele.style.color='#000';
+						}
+					}
+					ele.onblur=function(){//判断为空值设置默认值
+						if(this.value==''){
+							this.value=text;
+							ele.style.color='#ccc';
+						}
+				}
+			}for (var i=0;i<oInp.length;i++) {//调用两次placeholder函数
+				if(i==0){placeholder(oInp[i],'请您输入姓名');}
+				if(i==1){placeholder(oInp[i],'请您输入密码');}
+				}
+//-------------------------------------显示登录窗口并拖拽--------------------------------------------
+				oPen.onclick=function(){
+					oBMo.style.display=oBox.style.display="block";
+					var oBox_l=(document.documentElement.clientWidth-oBox.offsetWidth)/2;
+					var oBox_t=(document.documentElement.clientHeight-oBox.offsetHeight)/2;
+					oBox.style.left=oBox_l+'px';
+					oBox.style.top=oBox_t+'px';
+				}
+			
+			oCloseBtn.onclick=function(){//关掉登录窗口
+				oBMo.style.display=oBox.style.display="none";
+			}
+			drag(oBox,title);
+		}
+//----------------------------------------------------------------------------------------------------
+	function drag(box,title){
+				var handle;
+				title ? handle=title:handle=box ;
+				handle.onmousedown=function(ev){//鼠标按下效果
+					var oEv=ev || window.event;
+					var disX=oEv.clientX-box.offsetLeft;//鼠标在Div内的X值
+					var disY=oEv.clientY-box.offsetTop;//鼠标在Div内的Y值
+					var b_w=document.documentElement.clientWidth;
+					var b_h=document.documentElement.clientHeight;
+					document.onmousemove=function(ev){
+						var oEv=ev || window.event;
+						var H=oEv.clientY-disY;//Div的Height值
+						var L=oEv.clientX-disX;//Div的Left值
+						if (L<0) {	
+							L=0	
+						}
+						if (H<0) {
+							H=0	
+						}
+						if (L>b_w-box.offsetWidth) {					
+							L=b_w-box.offsetWidth;
+						}
+						if (H>b_h-box.offsetHeight) {						
+							H=b_h-box.offsetHeight
+						}
+						box.style.left=L+'px';
+						box.style.top=H+'px';
+					};
+					return false;
+					
+				}
+				handle.onmouseup=function(){//鼠标抬起效果
+					document.onmousemove=null;
+				}
+			
+		}
+		</script>
+	</head>	
+	<style>
+		
+	</style>
+	
+	<body>
+		<button id="open_popBox" class='OpenBtn' type="button">登陆窗口</button>
+		<div id="black_modal" class="modal"></div>
+		<div id='box' class="nomod">
+			<h4>用户登录<a href="#" id='closeBtn'>x</a></h4>
+			
+			<p>
+				<label for="#">账号：</label>
+				<input type="text"/>
+			</p>
+			<p>
+				<label for="#">密码：</label>
+				<input type="password"/>
+			</p>
+			<p class="loginbox">
+				<button type="button">登陆</button>
+				<button type="reset">重置</button>
+			</p>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,56 @@
+/*CSS File*/
+/*--------模板层--------------*/
+.modal{
+    width:100%;
+    height:100%;
+    background:#D0E9C6;
+    opacity:.3;
+    position:fixed;
+    top:0;left:0;
+    z-index:-1;display:none;
+}
+/*-----------登录窗口---------*/
+.nomod{
+    width:280px;
+    height:150px;
+    border:1px solid #eee;
+    display:none;
+    background:#fff;
+    position:absolute;
+}
+.nomod p{
+    padding-left:30px;
+    padding-top:10px;
+}
+.nomod h4{
+    line-height:28px;
+    color:#F7F7F7;
+    background:#ADADAD;
+    padding-left:10px;
+    cursor:crosshair;
+}
+.nomod h4 a{
+    color:#f7f7f7;
+    float:right;
+    padding-right:10px;
+}
+.nomod h4 a:hover{
+    color:#777777;
+    transition:all 1s;
+}
+.loginbox{
+    margin-left:50%;
+    transform:translateX(-50%);
+}
+.loginbox button{
+    border:1px solid #878585;
+    border-radius:5px;
+    cursor: pointer;
+}
+/*-----------警告框样式----------------------------------------------*/
+#oAlert{width:130px;background:lightgrey;  position: relative;min-height:100px;}
+#oAlert h5{padding-left:20px;background:darkgray;}
+#oAlert button{position: absolute;left:50%;transform:translate(-50%);}
+#oAlert p{font-size:12px;margin:auto}
+/*------------错误框样式---------------------------------------------*/
+#pop_error{position: absolute;display:block;max-width:120px;min-width:80px;line-height:36px;text-align:center;background:greenyellow;border-radius:5px;color:darkgray}

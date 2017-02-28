@@ -1,0 +1,11 @@
+*{text-decoration:none;list-style:none;padding:0;margin:0;}
+.OpenBtn{
+    background:rgba(100,200,100,.7);
+    border-radius:5px;
+    color:#fff;
+    margin:0 auto;
+    border:1px #008000 solid;
+    cursor:pointer;
+    font-size:35px;
+    position: absolute;
+}
